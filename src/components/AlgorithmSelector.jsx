@@ -2,17 +2,15 @@ import React from 'react';
 
 const AlgorithmSelector = ({ selectedAlgorithm, onChange }) => {
   return (
-    <div className="mb-4">
-      <label className="block text-gray-400 mb-2">CPU Scheduling Algorithm</label>
+    <div className="mb-6">
+      <label className="block text-lg font-semibold text-white mb-3">CPU Scheduling Algorithm</label>
       <select 
         value={selectedAlgorithm} 
         onChange={(e) => onChange(e.target.value)} 
-        className="w-full p-2 bg-gray-700 text-white rounded-lg"
+        className="w-full p-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition-transform transform hover:scale-105"
       >
-        <option value="fcfs">First Come First Serve (FCFS)</option>
-        <option value="sjf">Shortest Job First (SJF)</option>
-        <option value="rr">Round Robin (RR)</option>
-        <option value="priority">Priority Scheduling</option>
+        <option value="fcfs" className="text-gray-800">First Come First Serve (FCFS)</option>
+       
       </select>
     </div>
   );

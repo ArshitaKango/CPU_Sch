@@ -1,37 +1,37 @@
 export const fcfs = (processes) => {
-  // Sort processes by arrival time
-  processes.sort((a, b) => a.arrivalTime - b.arrivalTime);
-
-  let currentTime = 0;
-  const waitingTimes = [];
-  const turnaroundTimes = [];
-  const relaxationTimes = [];
-  
-  processes.forEach((process) => {
-    // Calculate waiting time
-    const waitTime = Math.max(currentTime - process.arrivalTime, 0);
-    waitingTimes.push(waitTime);
-
-    // Calculate turnaround time
-    const turnAroundTime = waitTime + process.burstTime;
-    turnaroundTimes.push(turnAroundTime);
-
-    // Calculate relaxation time
-    const relaxationTime = waitTime / process.burstTime;
-    relaxationTimes.push(relaxationTime);
-
-    // Update current time
-    currentTime = process.arrivalTime + turnAroundTime;
+  processes.sort((a, b) => {
+    if (a.arrivalTime === b.arrivalTime) {
+      return a.burstTime - b.burstTime;
+    }
+    return a.arrivalTime - b.arrivalTime;
   });
 
+  const waitingTimes = new Array(processes.length).fill(0);
+  const turnaroundTimes = new Array(processes.length).fill(0);
+  const relaxationTimes = new Array(processes.length).fill(0);
+
+  let currentTime = 0;
+
+  processes.forEach((process, index) => {
+    const startTime = Math.max(currentTime, process.arrivalTime);
+    const waitTime = startTime - process.arrivalTime;
+    waitingTimes[index] = waitTime;
+
+    currentTime = startTime + process.burstTime;
+
+    const turnAroundTime = currentTime - process.arrivalTime;
+    turnaroundTimes[index] = turnAroundTime;
+
+    const relaxationTime = process.burstTime > 0 ? waitTime / process.burstTime : 0;
+    relaxationTimes[index] = relaxationTime;
+
+  });
+
+  console.log('Turnaround Times:', turnaroundTimes); // Log the turnaround times
 
   return {
-   
-    processDetails: processes.map((process, index) => ({
-      ...process,
-      waitingTime: waitingTimes[index],
-      turnAroundTime: turnaroundTimes[index],
-      relaxationTime: relaxationTimes[index],
-    }))
+    waitingTimes,
+    turnaroundTimes,
+    relaxationTimes
   };
 };
