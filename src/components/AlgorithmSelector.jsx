@@ -3,7 +3,7 @@ import React from 'react';
 const AlgorithmSelector = ({ selectedAlgorithm, onChange }) => {
   return (
     <div className="mb-4">
-      <label className="block text-gray-400 mb-2">Select CPU Scheduling Algorithm</label>
+      <label className="block text-gray-400 mb-2">CPU Scheduling Algorithm</label>
       <select 
         value={selectedAlgorithm} 
         onChange={(e) => onChange(e.target.value)} 
