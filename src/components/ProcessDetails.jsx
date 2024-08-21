@@ -1,12 +1,16 @@
 import React from 'react';
 
 const ProcessDetails = ({ processes, waitingTimes, turnAroundTimes, relaxationTimes }) => {
+  // Create processDetails array with default values if necessary
   const processDetails = processes.map((process, index) => ({
     ...process,
-    waitingTime: waitingTimes[index] || 0,
-    turnAroundTime: turnAroundTimes[index] || 0,
-    relaxationTime: relaxationTimes[index] || 0,
+    waitingTime: waitingTimes[index] !== undefined ? waitingTimes[index] : 0,
+    turnAroundTime: turnAroundTimes[index] !== undefined ? turnAroundTimes[index] : 0,
+    relaxationTime: relaxationTimes[index] !== undefined ? relaxationTimes[index] : 0,
   }));
+
+  // Format numbers safely
+  const formatNumber = (num) => (typeof num === 'number' ? num.toFixed(2) : '0.00');
 
   return (
     <div className="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
@@ -28,9 +32,9 @@ const ProcessDetails = ({ processes, waitingTimes, turnAroundTimes, relaxationTi
               <td className="px-4 py-2">{`P${index + 1}`}</td>
               <td className="px-4 py-2">{process.arrivalTime}</td>
               <td className="px-4 py-2">{process.burstTime}</td>
-              <td className="px-4 py-2">{process.waitingTime.toFixed(2)}</td>
-              <td className="px-4 py-2">{process.turnAroundTime.toFixed(2)}</td>
-              <td className="px-4 py-2">{process.relaxationTime.toFixed(2)}</td>
+              <td className="px-4 py-2">{formatNumber(process.waitingTime)}</td>
+              <td className="px-4 py-2">{process.turnAroundTime}</td>
+              <td className="px-4 py-2">{formatNumber(process.relaxationTime)}</td>
             </tr>
           ))}
         </tbody>

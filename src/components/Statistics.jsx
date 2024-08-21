@@ -3,7 +3,7 @@ import React from 'react';
 const Statistics = ({ waitingTimes, turnAroundTimes, relaxationTimes }) => {
     // Calculate average with a fallback to 0 if the array is empty
     const average = (arr) => arr.length > 0 ? (arr.reduce((acc, val) => acc + val, 0) / arr.length).toFixed(2) : '0.00';
-  
+
     return (
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-teal-400 mb-4 text-center">Statistics</h2>
@@ -23,6 +23,6 @@ const Statistics = ({ waitingTimes, turnAroundTimes, relaxationTimes }) => {
         </div>
       </div>
     );
-  };
-  
+};
+
 export default Statistics;

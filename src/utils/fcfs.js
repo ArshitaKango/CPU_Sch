@@ -7,7 +7,7 @@ export const fcfs = (processes) => {
   const turnaroundTimes = [];
   const relaxationTimes = [];
   
-  processes.forEach((process, index) => {
+  processes.forEach((process) => {
     // Calculate waiting time
     const waitTime = Math.max(currentTime - process.arrivalTime, 0);
     waitingTimes.push(waitTime);
@@ -25,15 +25,15 @@ export const fcfs = (processes) => {
   });
 
   // Calculate average waiting time, turnaround time, and relaxation time
-  const avgWaitingTime = waitingTimes.reduce((a, b) => a + b, 0) / waitingTimes.length;
-  const avgTurnaroundTime = turnaroundTimes.reduce((a, b) => a + b, 0) / turnaroundTimes.length;
-  const avgRelaxationTime = relaxationTimes.reduce((a, b) => a + b, 0) / relaxationTimes.length;
+  const avgWaitingTime = waitingTimes.length > 0 ? waitingTimes.reduce((a, b) => a + b, 0) / waitingTimes.length : 0;
+  const avgTurnaroundTime = turnaroundTimes.length > 0 ? turnaroundTimes.reduce((a, b) => a + b, 0) / turnaroundTimes.length : 0;
+  const avgRelaxationTime = relaxationTimes.length > 0 ? relaxationTimes.reduce((a, b) => a + b, 0) / relaxationTimes.length : 0;
 
   return {
     metrics: {
       avgWaitingTime: avgWaitingTime,
       avgTurnaroundTime: avgTurnaroundTime,
-      relaxationTime: avgRelaxationTime,
+      avgRelaxationTime: avgRelaxationTime,
     },
     processDetails: processes.map((process, index) => ({
       ...process,

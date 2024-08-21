@@ -52,9 +52,9 @@ const App = () => {
 
     console.log('Calculation Result:', result); // Debugging line
   
-    setWaitingTimes([result.metrics.avgWaitingTime]);
-    setTurnAroundTimes([result.metrics.avgTurnaroundTime]);
-    setRelaxationTimes([result.metrics.relaxationTime]);
+    setWaitingTimes(result.processDetails.map(p => p.waitingTime));
+    setTurnAroundTimes(result.processDetails.map(p => p.turnAroundTime));
+    setRelaxationTimes(result.processDetails.map(p => p.relaxationTime));
   };
   
 
