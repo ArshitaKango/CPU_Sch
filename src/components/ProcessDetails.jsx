@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ProcessDetails = ({ processes, waitingTimes, turnAroundTimes, relaxationTimes }) => {
+const ProcessDetails = ({ processes , setWaitingTime , setTAT }) => {
+  const [processDetails, setProcessDetails] = useState([]);
+   console.log("Processes are  : " , processes) ;   
+  useEffect(() => {
+    let at = 0, ct = 0, tt = 0, wt = 0, rt = 0;
+    let totalWait = 0 , totalTAT = 0 ;  
+    const computedResults = processes.map((process) => {
+      wt = Math.max(0, at - process.arrivalTime);
+      at = Math.max(at, process.arrivalTime);
+      ct = at + Number(process.burstTime);
+      tt = ct - Number(process.arrivalTime);
+      console.log("Turn around time = " , tt  ,  " ct = " , ct , " arrival time = " ,  process.arrivalTime  , " burst time : " , process.burstTime);
+      rt = tt / process.burstTime;
+      at = ct;
+      totalWait += wt ; 
+      totalTAT += tt ;  
+      return {
+        arrivalTime: process.arrivalTime,
+        burstTime: process.burstTime,
+        waitingTime: wt,
+        completionTime: ct,
+        turnaroundTime: tt,
+        relaxationTime: rt.toFixed(2), 
+      };
+    });
+    setWaitingTime(totalWait/processes.length) ;  
+    setTAT(totalTAT/processes.length) ;  
+    setProcessDetails(computedResults);
+  }, [processes]);
 
-  // Testing
-  console.log('Processes:', processes);
-  console.log('Waiting Times:', waitingTimes);
-  console.log('Turnaround Times:', turnAroundTimes);
-  console.log('Relaxation Times:', relaxationTimes);
-
-  const processDetails = processes.map((process, index) => ({
-    ...process,
-    waitingTime: waitingTimes[index] !== undefined ? waitingTimes[index] : 0,
-    turnAroundTime: turnAroundTimes[index] !== undefined ? turnAroundTimes[index] : 0,
-    relaxationTime: relaxationTimes[index] !== undefined ? relaxationTimes[index] : 0,
-  }));
-
-  // Format numbers safely
   const formatNumber = (num) => (typeof num === 'number' ? num.toFixed(2) : '0.00');
 
   return (
@@ -27,9 +41,10 @@ const ProcessDetails = ({ processes, waitingTimes, turnAroundTimes, relaxationTi
             <th className="px-6 py-3 text-teal-400 font-semibold">Process</th>
             <th className="px-6 py-3 text-teal-400 font-semibold">Arrival Time</th>
             <th className="px-6 py-3 text-teal-400 font-semibold">Burst Time</th>
+            <th className="px-6 py-3 text-teal-400 font-semibold">Completion Time</th>
             <th className="px-6 py-3 text-teal-400 font-semibold">Waiting Time</th>
             <th className="px-6 py-3 text-teal-400 font-semibold">Turnaround Time</th>
-            <th className="px-6 py-3 text-teal-400 font-semibold">Relaxation Time</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -41,9 +56,10 @@ const ProcessDetails = ({ processes, waitingTimes, turnAroundTimes, relaxationTi
               <td className="px-6 py-3 text-center">{`P${index + 1}`}</td>
               <td className="px-6 py-3 text-center">{process.arrivalTime}</td>
               <td className="px-6 py-3 text-center">{process.burstTime}</td>
+              <td className="px-6 py-3 text-center">{formatNumber(process.completionTime)}</td>
               <td className="px-6 py-3 text-center">{formatNumber(process.waitingTime)}</td>
-              <td className="px-6 py-3 text-center">{formatNumber(process.turnAroundTime)}</td>
-              <td className="px-6 py-3 text-center">{formatNumber(process.relaxationTime)}</td>
+              <td className="px-6 py-3 text-center">{formatNumber(process.turnaroundTime)}</td>
+              
             </tr>
           ))}
         </tbody>
