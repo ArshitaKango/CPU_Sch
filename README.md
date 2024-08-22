@@ -2,6 +2,8 @@
 # CPU Scheduler - FCFS Algorithm
 The CPU Scheduling Visualizer is a that tool visualizes the First-Come, First-Served (FCFS) CPU scheduling algorithm, helping users understand how process scheduling works in operating systems.
 
+<img src='cpu.png' alt="cpuSch look" width='100%' />
+
 ## Features
 1. Process Input: Users can input processes with details such as arrival time and burst time.
 2. Process Queue: Displays the list of processes as they arrive, showing their order in the queue.
