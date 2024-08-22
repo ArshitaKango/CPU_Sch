@@ -9,7 +9,7 @@ The CPU Scheduling Visualizer is a that tool visualizes the First-Come, First-Se
 2. Process Queue: Displays the list of processes as they arrive, showing their order in the queue.
 3. Gantt Chart: Visual representation of the process execution order and duration on a timeline.
 4. Process Details: Detailed information for each process, including waiting time, turnaround time, and relaxation time.
-5. Statistics: Displays average waiting time, turnaround time, and relaxation time for all processes.
+5. Statistics: Displays average waiting time and turnaround timefor all processes.
    
 
 ## Usage
@@ -18,7 +18,7 @@ The CPU Scheduling Visualizer is a that tool visualizes the First-Come, First-Se
 3. View Process Queue: The list of processes will be displayed, showing the order of execution.
 4. View Gantt Chart: A Gantt chart will be generated, visually representing the process execution over time.
 5. Process Details: Detailed stats for each process will be shown, including waiting time, turnaround time, and relaxation time.
-6. Statistics: The final section provides the average waiting time, turnaround time, and relaxation time across all processes.
+6. Statistics: The final section provides the average waiting time and turnaround time across all processes.
 
 
 ## Tech Stack
